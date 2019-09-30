@@ -6,12 +6,10 @@
     <div class='row'>
         {% for playlist in playlists %}
             <div class='col-md-3'>
-                <div class="card" style="width: 18rem;">
 
                 <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
                 <small>{{ playlist.description }}</small>
 
-                </div>
             </div>
         {% endfor %}
     </div>

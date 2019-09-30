@@ -3,7 +3,9 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 client = MongoClient()
+
 db = client.Playlister
+client.drop_database(db)
 playlists = db.playlists
     # mock array of objects
 # playlists = [
@@ -26,15 +28,13 @@ def playlists_new():
 @app.route("/playlists", methods=["POST"])
 def playlist_submit():
     # submit a new playlist 
-    print(request.form.to_dict())
     playlist = {
         'title': request.form.get('title'),
         'description': request.form.get('description'),
         'videos': request.form.get('videos').split()
     }
     playlists.insert_one(playlist)
-    playlist_id = playlists.insert_one(playlist).inserted_id
-    return redirect(url_for("playlists_show",playlist_id=playlist_id))
+    return redirect(url_for('playlists_index'))
 
 @app.route("/playlists/<playlist_id>")
 def playlists_show(playlist_id):
@@ -67,6 +67,6 @@ def playlists_delete(playlist_id):
     playlists.delete_one({'_id': ObjectId(playlist_id)})
     return redirect(url_for('playlists_index'))
 
-    
+
 if __name__ == '__main__':
     app.run(debug=True)

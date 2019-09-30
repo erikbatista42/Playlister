@@ -3,16 +3,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 client = MongoClient()
-
 db = client.Playlister
-client.drop_database(db)
 playlists = db.playlists
-    # mock array of objects
-# playlists = [
-#     { 'title': 'Cat Videos', 'description': 'Cats acting weird' },
-#     { 'title': '80\'s Music', 'description': 'Don\'t stop believing!' },
-#     {'title': 'Favorite Music', 'description': ["Better not", "No fun"]}
-# ]
 
 app = Flask(__name__)
 @app.route("/")
